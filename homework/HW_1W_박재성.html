@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haru_쇼핑몰</title>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <style>
+        .shoppage{
+            width: 800px;
+            margin: auto;
+            margin-top: 30px;
+            ;
+        }
+        .nav{
+            background-color: black;
+            margin-top: 20px;
+        }
+        .pruchacer{
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function q1() {
+            alert("주문이완료되엇습니다.")
+        }
+    </script>
+
+</head>
+<!-- 과제인데 무엇을 팔아볼까요 -->
+<body>
+
+<div class="shoppage">
+    <!-- 네비게이션바 -->
+    <ul class="nav">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#">상품 List</a></li>
+        <li role="presentation"><a href="#">장바구니</a></li>
+    </ul>
+    <!-- 상품사진 -->
+    <p style="text-align: center;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRrSgdFEV0q6w_T0YaKNo_tg5q0y0Mgkkir0uECWaTU2TkPNfev&usqp=CAU" width="300" height="300" >
+    </p>
+    
+    <!-- 상품 설명(이름) -->
+    <div class="namepri">
+        <h4 class="title-box font-mss">Product Info<span class="korSub">제품정보</span></h4>
+        <ul class="product_article">
+            <li>
+                <p class="product_article_contents"><a>집행검</a> <span class="txt_unit2">/</span> $30,000,000/ea</p>
+            </li>
+           The 최강의 무기를 지금 단돈 $30,000,000에 구입하세요
+       </ul>
+    </div>
+    <!-- 구매자 정보 입력 -->
+    <div class="pruchacer">
+        <h4 class="title-box font-mss">주문자 정보 입력</h4>
+            <ul class="product_article">
+                <div class="input-group"></div>
+                    <p class="product_article_contents">주문자 성함 :      <input type="text"  placeholder="Username" aria-describedby="basic-addon1"></p>
+                </div>
+            </ul>
+            <ul class="product_article">
+                <div class="input-group"></div>
+                    <p class="product_article_contents">수　　　량 :  
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            Action <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </p>
+            </ul>
+            <ul class="product_article">
+                <div class="input-group">
+                    <p class="product_article_contents">주　　　소 :      <input type="text"  placeholder="Address"" aria-describedby="basic-addon1"></p>
+                </div>
+            </ul>
+            <ul class="product_article">
+                <div class="input-group">
+                    <p class="product_article_contents">전화　번호 :      <input type="text"  placeholder="Phone No." aria-describedby="basic-addon1"></p>
+                </div>
+            </ul>
+            <ul class="Checkbutton">
+                <div class="btn-group" role="group">
+                    <button onclick="q1()" type="button" class="btn btn-default">주문완료</button>
+                </div>
+            </ul>
+                     
+        </div>
+    </div>
+</div>
+</body>
+</html>
