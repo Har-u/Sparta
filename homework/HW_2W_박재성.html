@@ -15,6 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <!-- 구글폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <!-- jQuery 불러오기 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <style>
         .shoppage{
             width: 800px;
@@ -30,21 +33,39 @@
             margin-top: 20px;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-    function set_exchange() {
-        $.ajax({
+        $(document).ready(function(){
+            
+            $.ajax({
                 type: "GET",
                 url: "https://api.manana.kr/exchange/rate.json",
                 data: {},
                 success: function (response) {
                 let fex = response[1]["rate"]
+
                 $("#fex_class").append(fex);
                 }
             })
-      }
 
+
+            });
+
+        function q1(){
+            let na = $("#na").val();
+            let ju = $("#ju").val();
+            let num = $("#num").val();
+
+            if(na == ""){
+                alert("이름!!!");
+            } else if(ju == ""){
+                alert("너희집은?");
+            } else if(num == ""){
+                alert("give me your number");
+            
+            }
+        };
     </script>
+
 
 </head>
 <!-- 과제인데 무엇을 팔아볼까요 -->
@@ -81,13 +102,13 @@
         <h4 class="title-box font-mss">주문자 정보 입력</h4>
             <ul class="product_article">
                 <div class="input-group"></div>
-                    <p class="product_article_contents">주문자 성함 :      <input id="name1" class="name" type="text"  placeholder="Username" aria-describedby="basic-addon1"></p>
+                    <p id="na11" class="product_article_contents">주문자 성함 :      <input id="na" class="name" type="text"  placeholder="Username" aria-describedby="basic-addon1"></p>
                 </div>
             </ul>
             <ul class="product_article">
                 <div class="input-group"></div>
-                    <p class="product_article_contents">수　　　량 :  
-                        <select class="custom-seclet" id="ordercount">
+                    <p id="su1" class="product_article_contents">수　　　량 :  
+                        <select id="su" class="custom-seclet" id="ordercount">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -97,17 +118,17 @@
             </ul>
             <ul class="product_article">
                 <div class="input-group">
-                    <p class="product_article_contents">주　　　소 :      <input type="text"  placeholder="Address"" aria-describedby="basic-addon1"></p>
+                    <p id="ju1" class="product_article_contents">주　　　소 :      <input id="ju" type="text"  placeholder="Address"" aria-describedby="basic-addon1"></p>
                 </div>
             </ul>
             <ul class="product_article">
                 <div class="input-group">
-                    <p class="product_article_contents">전화　번호 :      <input type="text"  placeholder="Phone No." aria-describedby="basic-addon1"></p>
+                    <p id="num1" class="product_article_contents">전화　번호 :      <input id="num" type="text"  placeholder="Phone No." aria-describedby="basic-addon1"></p>
                 </div>
             </ul>
             <ul class="Checkbutton">
                 <div class="btn-group" role="group">
-                    <button onclick="q1()" type="button" class="btn btn-default">주문완료</button>
+                    <button type="button" class="btn btn-default" onclick="q1()">주문완료</button>
                 </div>
             </ul>
                      
