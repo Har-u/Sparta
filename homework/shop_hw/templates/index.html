@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haru_쇼핑몰</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <style>
+        .shoppage{
+            width: 800px;
+            margin: auto;
+            margin-top: 30px;
+            ;
+        }
+        .nav{
+            background-color: black;
+            margin-top: 20px;
+        }
+        .pruchacer{
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            //환율메이커
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                let fex = response[1]["rate"]
+
+                $("#fex_class").append(fex);
+                }
+            })
+
+
+            });
+        
+        $(document).ready(function () {
+            $('#orders-box').html('');
+            listing();
+        });
+
+
+        function q1(){
+            let name = $('#name').val();
+            let amount = $('#amount option:selected').val();
+            let adress = $('#adress').val();
+            let number = $('#number').val();
+
+            if(name == ""){
+                alert("이름!!!");
+                return;
+            } else if(adress == ""){
+                alert("너희집은?");
+                return;
+            } else if(number == ""){
+                alert("give me your number");
+                return;
+            }     
+         
+            $.ajax({
+            type: "POST",
+            url: "/order",
+            data: { name_give: name, amount_give: amount, adress_give: adress, number_give: number },
+            success: function (response) {
+            if (response['result'] == 'success') {
+                alert(response['msg']);
+                window.location.reload();
+            }
+        }
+        })
+        };
+
+        function make_card(name, amount, adress, number){
+            let temp_html = `<tr>
+                            <td>${name}</td>
+                            <td>${amount}</td>
+                            <td>${adress}</td>
+                            <td>${number}</td>
+                        </tr>`
+            $('#orders-box').append(temp_html)
+        }
+        function listing() {
+            // 1. 주문 목록을 서버에 요청하기
+            // 2. 요청 성공 여부 확인하기
+            // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
+            $.ajax({
+                type: "GET",
+                url: "/order",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert('업데이트완료');
+                        // 2. 성공했을 때 주문정보를 올바르게 화면에 나타내기
+                        let orders= response['msg'];
+                        for (let i =0; i < orders.length; i++) {
+                            make_card(orders[i]['name'],
+                            orders[i]['amount'],
+                            orders[i]['adress'],
+                            orders[i]['number'])
+                        }
+                    } else {
+                        alert('주문목록을 받아오지못했습니다.');
+                    }
+                }
+            });
+        }
+    </script>
+
+
+</head>
+<!-- 과제인데 무엇을 팔아볼까요 -->
+<body>
+
+<div class="shoppage">
+    <!-- 네비게이션바 -->
+    <ul class="nav">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#">상품 List</a></li>
+        <li role="presentation"><a href="#">장바구니</a></li>
+    </ul>
+    <!-- 상품사진 -->
+    <p style="text-align: center;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRrSgdFEV0q6w_T0YaKNo_tg5q0y0Mgkkir0uECWaTU2TkPNfev&usqp=CAU" width="300" height="300" >
+    </p>
+    
+    <!-- 상품 설명(이름) -->
+    <div class="namepri">
+        <h4 class="title-box font-mss">Product Info<span class="korSub">제품정보</span></h4>
+        <ul class="product_article">
+            <li>
+                <p class="product_article_contents"><a>집행검</a> <span class="txt_unit2">/</span> $30,000,000/ea</p>
+            </li>
+           The 최강의 무기를 지금 단돈 $30,000,000에 구입하세요
+       </ul>
+       
+    </div>
+    <div id="fex_class" class="fex_class"> 
+        환율 (달러-원): 
+    </div>
+    <!-- 구매자 정보 입력 -->
+    <div class="pruchacer">
+        <h4 class="title-box font-mss">주문자 정보 입력</h4>
+            <ul class="product_article">
+                <div class="input-group"></div>
+                    <p id="na11" class="product_article_contents">주문자 성함 :      <input id="name" class="name" type="text"  placeholder="Username" aria-describedby="basic-addon1"></p>
+                </div>
+            </ul>
+            <ul class="product_article">
+                <div class="input-group"></div>
+                    <p id="su1" class="product_article_contents">수　　　량 :  
+                        <select id="amount" class="amount" >
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </p>
+            </ul>
+            <ul class="product_article">
+                <div class="input-group">
+                    <p id="ju1" class="product_article_contents">주　　　소 :      <input class="adress"id="adress" type="text"  placeholder="Address" aria-describedby="basic-addon1"></p>
+                </div>
+            </ul>
+            <ul class="product_article">
+                <div class="input-group">
+                    <p id="num1" class="product_article_contents">전화　번호 :      <input class='number' id="number" type="text"  placeholder="Phone No." aria-describedby="basic-addon1"></p>
+                </div>
+            </ul>
+            <ul class="Checkbutton">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="q1()">주문완료</button>
+                </div>
+            </ul>
+            <div class="orders">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">주문자명</th>
+                            <th scope="col">주문수량</th>
+                            <th scope="col">주소</th>
+                            <th scope='col'>전화번호</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-box">
+                        <!-- <tr>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>         
+        </div>
+        
+    </div>
+</div>
+</body>
+</html>
